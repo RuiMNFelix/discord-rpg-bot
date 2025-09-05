@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.example.rpg.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,11 @@ public class BattleCommand implements Command{
         }
 
         String battleStartMessage = session.startBattle();
-        event.reply(battleStartMessage + "\nTo attack, type `/attack`.").queue();
-        logger.info("Battle started by {} on channel {}", userName, channelId);
+        event.reply(battleStartMessage)
+                .addActionRow(
+                        Button.primary("attack:" + userId, "⚔️ Attack"),
+                        Button.danger("run:" + userId, "🏃 Run")
+                )
+                .queue();
     }
 }

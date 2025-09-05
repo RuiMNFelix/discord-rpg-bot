@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.example.listeners.BattleButtonHandler;
 import org.example.config.BotConfig;
 import org.example.listeners.CommandListener;
 import org.slf4j.Logger;
@@ -27,6 +28,7 @@ public class Main {
             jda = JDABuilder.createDefault(botToken)
                     .enableIntents(EnumSet.allOf(GatewayIntent.class))
                     .addEventListeners(new CommandListener())
+                    .addEventListeners(new BattleButtonHandler())
                     .build();
             jda.awaitReady();
             logger.info("Bot is online and ready");
@@ -46,7 +48,6 @@ public class Main {
         jda.updateCommands()
                 .addCommands(
                         Commands.slash("battle", "Starts a battle"),
-                        Commands.slash("attack", "Attacks a monster"),
                         Commands.slash("stats", "Checks player's stats")
                 ).queue(success -> logger.info("Slash commands registered successfully!"),
                         failure -> logger.error("Failed to register slash commands: ", failure));

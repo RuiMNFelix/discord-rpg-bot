@@ -28,25 +28,24 @@ public class AttackCommand implements Command {
         GameSession session = PlayerManager.getGameSession(channelId);
 
         if (session == null || !session.isBattleActive()) {
-            event.reply("Não há nenhuma batalha ativa neste canal. Digite `/battle` para começar uma nova.")
+            event.reply("There is no active battle on this channel. Type `/battle` to start a new one.")
                     .setEphemeral(true).queue();
             return;
         }
 
-        // Garante que o jogador que atacou é o mesmo que iniciou a sessão (ou a quem a sessão pertence)
         if (!session.getPlayer().getId().equals(userId)) {
-            event.reply("Você não está participando desta batalha!").setEphemeral(true).queue();
+            event.reply("You are not participating on this battle!").setEphemeral(true).queue();
             return;
         }
 
         String battleLog = session.playerAttack();
         event.reply(battleLog).queue();
-        logger.debug("Comando /attack executado por {} no canal {}", userName, channelId);
+        logger.debug("Command /attack executed by {} on channel {}", userName, channelId);
 
         if (!session.isBattleActive()) {
-            PlayerManager.savePlayer(session.getPlayer()); // Salva o estado do jogador após a batalha
+            PlayerManager.savePlayer(session.getPlayer());
             PlayerManager.removeGameSession(channelId);
-            logger.info("Batalha finalizada no canal {}", channelId);
+            logger.info("Battle ended on channel {}", channelId);
         }
     }
 }

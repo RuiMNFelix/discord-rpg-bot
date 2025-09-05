@@ -24,7 +24,7 @@ public class Monster {
     }
 
     public void takeDamage(int damage) {
-        int actualDamage = Math.max(0, damage - defense);
+        int actualDamage = damage * damage / (damage+defense);
         this.hp -= actualDamage;
         if(this.hp < 0){
             this.hp = 0;

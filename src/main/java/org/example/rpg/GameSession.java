@@ -40,7 +40,7 @@ public class GameSession {
         }
 
         int playerDamage = player.calculateDamage();
-        int actualPlayerDamage = playerDamage - monster.getDefense();
+        int actualPlayerDamage = playerDamage * playerDamage / (playerDamage + monster.getDefense());
         monster.takeDamage(playerDamage);
         sb.append("`").append(player.getUsername()).append("` attacks `").append(monster.getName()).append("` causing **").append(actualPlayerDamage).append("** of damage!\n");
         sb.append("`").append(monster.getName()).append("`: ❤\uFE0F ").append(monster.getHp()).append("/").append(monster.getMaxHp()).append("\n");
@@ -59,7 +59,7 @@ public class GameSession {
 
         sb.append("\n");
         int monsterDamage = monster.calculateDamage();
-        int actualMonsterDamage = monsterDamage - player.getDefense();
+        int actualMonsterDamage = monsterDamage * monsterDamage / (monsterDamage + player.getDefense());
         player.takeDamage(monsterDamage);
         sb.append("`").append(monster.getName()).append("` attacks `").append(player.getUsername()).append("` causing **").append(actualMonsterDamage).append("** of damage!\n");
         sb.append("`").append(player.getUsername()).append("`: ❤\uFE0F ").append(player.getHp()).append("/").append(player.getMaxHp()).append("\n");
