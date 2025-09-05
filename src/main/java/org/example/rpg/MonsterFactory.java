@@ -5,20 +5,45 @@ import java.util.Random;
 public class MonsterFactory {
     private static final Random random = new Random();
 
-    private static final String[] MONSTER_NAMES = {
-            "\uD83D\uDC14 Angry Chicken", "🧻 Toilet Paper Golem", "\uD83D\uDC0C Lazy Snail", "\uD83E\uDD54 Potato Warrior",
-            "🪦 Tiny Ghost", "\uD83D\uDFE2 Slime Jr.", "\uD83D\uDC7A Minor Goblin"
+    private static final String[] MONSTER_NAMES_1_TO_5 = {
+            "\uD83D\uDC3E Wild Dog", "\uD83E\uDDF8 Brown Bear", "\uD83D\uDC2F\uD83C\uDF7C Baby Tiger",
+            "\uD83D\uDFE2 Slime Jr.", "\uD83E\uDD87 Bat"
     };
 
-    public static Monster createRandomMonster() {
-        String name =  MONSTER_NAMES[random.nextInt(MONSTER_NAMES.length)];
+    private static final String[] MONSTER_NAMES_6_TO_10 = {
+            "\uD83D\uDFE2 Green Slime", "\uD83E\uDDB4 Skeleton", "\uD83E\uDDCC Green Goblin",
+            "\uD83D\uDC7B Ghost", "\uD83D\uDC41\uFE0F Cyclops"
+    };
 
-        int hp =  10 + random.nextInt(51);
-        int attack = 5 + random.nextInt(21);
-        int defense = random.nextInt(21);
-        int experienceReward = 20 + random.nextInt(81);
-        int coinsReward = 10 + random.nextInt(91);
+    private static final String[] MONSTER_NAMES_11_TO_ABOVE = {
+            "Dragon", "Minotaur", "Kraken", "Griffin", "Loch Ness Monster"
+    };
 
+    public static Monster createRandomMonster(int playerLevel) {
+        String name;
+        int hp, attack, defense, experienceReward, coinsReward;
+        if(playerLevel <= 5) {
+            name = MONSTER_NAMES_1_TO_5[random.nextInt(MONSTER_NAMES_1_TO_5.length)];
+            hp = playerLevel * 15 + random.nextInt(26);
+            attack = playerLevel * 2 + random.nextInt(6);
+            defense = random.nextInt(11);
+            experienceReward = 20 + random.nextInt(81);
+            coinsReward = 10 + random.nextInt(11);
+        }else if(playerLevel <= 10) {
+            name = MONSTER_NAMES_6_TO_10[random.nextInt(MONSTER_NAMES_6_TO_10.length)];
+            hp = playerLevel * 15 + random.nextInt(26);
+            attack = playerLevel * 2 + random.nextInt(6);
+            defense = random.nextInt(11);
+            experienceReward = 50 + random.nextInt(81);
+            coinsReward = 30 + random.nextInt(11);
+        }else{
+            name = MONSTER_NAMES_11_TO_ABOVE[random.nextInt(MONSTER_NAMES_11_TO_ABOVE.length)];
+            hp = playerLevel * 15 + random.nextInt(26);
+            attack = playerLevel * 2 + random.nextInt(6);
+            defense = random.nextInt(11);
+            experienceReward = 100 + random.nextInt(101);
+            coinsReward = 50 + random.nextInt(11);
+        }
         return new Monster(name, hp, attack, defense, experienceReward, coinsReward);
     }
 }

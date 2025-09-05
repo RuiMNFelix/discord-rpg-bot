@@ -39,7 +39,7 @@ public class Player {
     }
 
     private int  getExpToNextLevel() {
-        return level * 100;
+        return level * 100 - 50 * (level-1);
     }
 
     public void levelUp() {

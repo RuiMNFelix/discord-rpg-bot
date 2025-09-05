@@ -32,14 +32,13 @@ public class BattleCommand implements Command{
         }
 
         Player player = PlayerManager.getPlayer(userId, userName);
-        Monster monster = MonsterFactory.createRandomMonster();
-        PlayerManager.startGameSession(channelId, player, monster);
-        GameSession session = PlayerManager.getGameSession(channelId);
-
         if (player.getHp() == 0){
             event.reply("you don't have enough ❤\uFE0F for a battle!").queue();
             return;
         }
+        Monster monster = MonsterFactory.createRandomMonster(player.getLevel());
+        PlayerManager.startGameSession(channelId, player, monster);
+        GameSession session = PlayerManager.getGameSession(channelId);
 
         String battleStartMessage = session.startBattle();
         event.reply(battleStartMessage)

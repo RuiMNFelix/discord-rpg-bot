@@ -47,10 +47,11 @@ public class GameSession {
 
         if (!monster.isAlive()) {
             sb.append("\n** Victory! ** The `").append(monster.getName()).append("` has been defeated by `").append(player.getUsername()).append("`!\n");
+            int levelBeforeBattle = player.getLevel();
             player.addExperience(monster.getExperienceReward());
             player.addCoins(monster.getCoinReward());
-            sb.append("You won **").append(monster.getExperienceReward()).append("** of XP and **").append(monster.getCoinReward()).append("** \uD83D\uDCB0.\n");
-            if (player.getExperience() == 0 && player.getLevel() > 1) {
+            sb.append("Won **").append(monster.getExperienceReward()).append("** of XP and **").append(monster.getCoinReward()).append("** \uD83D\uDCB0.\n");
+            if (levelBeforeBattle < player.getLevel()) {
                 sb.append("`").append(player.getUsername()).append("` leveled up **").append(player.getLevel()).append("**!\n");
             }
             battleActive = false;
@@ -78,7 +79,7 @@ public class GameSession {
         if (!battleActive) {
             return "Battle is not active.";
         }
-        sb.append("\n** Pussy! ** `").append(player.getUsername()).append("` is running away from the  `").append(monster.getName()).append("`!\n");
+        sb.append("\n** Pussy! ** `").append(player.getUsername()).append("` is running away from a  `").append(monster.getName()).append("`!\n");
         return sb.toString();
     }
 
