@@ -73,6 +73,15 @@ public class GameSession {
         return sb.toString();
     }
 
+    public String playerRunAway(){
+        StringBuilder sb = new StringBuilder();
+        if (!battleActive) {
+            return "Battle is not active.";
+        }
+        sb.append("\n** Pussy! ** `").append(player.getUsername()).append("` is running away from the  `").append(monster.getName()).append("`!\n");
+        return sb.toString();
+    }
+
     public boolean isBattleActive() {
         return battleActive;
     }

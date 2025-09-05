@@ -39,7 +39,8 @@ public class BattleButtonHandler extends ListenerAdapter {
                 break;
 
             case "run":
-                event.editMessage("🏃 You ran away!")
+                String playerRunAway = session.playerRunAway();
+                event.editMessage(playerRunAway)
                         .setComponents()
                         .queue();
                 PlayerManager.removeGameSession(channelId);
