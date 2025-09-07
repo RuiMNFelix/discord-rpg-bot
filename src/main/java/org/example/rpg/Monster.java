@@ -39,6 +39,17 @@ public class Monster {
         return hp > 0;
     }
 
+    public String getHpBar(){
+        int totalBlocks = 10;
+        int filledBlocks = (int) Math.round(((double) hp / maxHp) * totalBlocks);
+        int emptyBlocks = totalBlocks - filledBlocks;
+
+        String filled = "■".repeat(filledBlocks);
+        String empty = "□".repeat(emptyBlocks);
+
+        return "❤️ [" + filled + empty + "] " + hp + "/" + maxHp;
+    }
+
     public String getName() { return name; }
     public int getHp() { return hp; }
     public int getMaxHp() { return maxHp; }

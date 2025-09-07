@@ -131,6 +131,17 @@ public class Player {
         return false;
     }
 
+    public String getHpBar(){
+        int totalBlocks = 10;
+        int filledBlocks = (int) Math.round(((double) hp / getRealMaxHp()) * totalBlocks);
+        int emptyBlocks = totalBlocks - filledBlocks;
+
+        String filled = "■".repeat(filledBlocks);
+        String empty = "□".repeat(emptyBlocks);
+
+        return "❤️ [" + filled + empty + "] " + hp + "/" + getRealMaxHp();
+    }
+
     public String getId() { return id; }
     public String getUsername() { return username; }
     public int getLevel() { return level; }
@@ -146,7 +157,7 @@ public class Player {
 
     @Override
     public String toString() {
-        return String.format("%s (Level: %d, ❤️ %d/%d, ⚔️ %d, \uD83D\uDEE1️ %d, XP: %d/%d, \uD83D\uDCB0 %d)",
-                username, level, hp, getRealMaxHp(), getRealAttack(), getRealDefense(), experience, getExpToNextLevel(), coins);
+        return String.format("%s (Level: %d, %s, ⚔️ %d, \uD83D\uDEE1️ %d, XP: %d/%d, \uD83D\uDCB0 %d)",
+                username, level, getHpBar(), getRealAttack(), getRealDefense(), experience, getExpToNextLevel(), coins);
     }
 }

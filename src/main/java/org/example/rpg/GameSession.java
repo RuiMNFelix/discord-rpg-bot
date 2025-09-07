@@ -25,11 +25,11 @@ public class GameSession {
         embedBuilder.setTitle("A Battle has started between **" + player.getUsername() + "** and **" + monster.getName() + "**!");
         sb.append("----------------------------------\n");
         sb.append("`").append(player.getUsername())
-                .append("`: ❤️ ").append(player.getHp()).append("/").append(player.getRealMaxHp())
+                .append("`: ").append(player.getHpBar())
                 .append(" | ⚔️ ").append(player.getRealAttack())
                 .append(" | \uD83D\uDEE1️ ").append(player.getRealDefense()).append("\n");
-        sb.append("`").append(monster.getName())
-                .append("`: ❤️ ").append(monster.getHp()).append("/").append(monster.getMaxHp())
+        sb.append("\n`").append(monster.getName())
+                .append("`: ").append(monster.getHpBar())
                 .append(" | ⚔️ ").append(monster.getAttack())
                 .append(" | \uD83D\uDEE1️ ").append(monster.getDefense()).append("\n");;
         sb.append("----------------------------------\n");
@@ -56,7 +56,7 @@ public class GameSession {
         int actualPlayerDamage = playerDamage * playerDamage / (playerDamage + monster.getDefense());
         monster.takeDamage(playerDamage);
         sb.append("`").append(player.getUsername()).append("` attacks `").append(monster.getName()).append("` causing **").append(actualPlayerDamage).append("** of damage!\n");
-        sb.append("`").append(monster.getName()).append("`: ❤️ ").append(monster.getHp()).append("/").append(monster.getMaxHp()).append("\n");
+        sb.append("`").append(monster.getName()).append("`: ").append(monster.getHpBar()).append("\n");
 
         if (!monster.isAlive()) {
             sb.append("\n** Victory! ** The `").append(monster.getName()).append("` has been defeated by `").append(player.getUsername()).append("`!\n");
@@ -77,7 +77,7 @@ public class GameSession {
         int actualMonsterDamage = monsterDamage * monsterDamage / (monsterDamage + player.getRealDefense());
         player.takeDamage(monsterDamage);
         sb.append("`").append(monster.getName()).append("` attacks `").append(player.getUsername()).append("` causing **").append(actualMonsterDamage).append("** of damage!\n");
-        sb.append("`").append(player.getUsername()).append("`: ❤️ ").append(player.getHp()).append("/").append(player.getRealMaxHp()).append("\n");
+        sb.append("`").append(player.getUsername()).append("`: ").append(player.getHpBar()).append("\n");
 
         if (!player.isAlive()) {
             sb.append("\n** Defeated! ** `").append(player.getUsername()).append("` has been defeated by `").append(monster.getName()).append("`!\n");
