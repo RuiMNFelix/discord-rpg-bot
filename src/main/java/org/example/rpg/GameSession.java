@@ -1,6 +1,7 @@
 package org.example.rpg;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import org.example.rpg.Items.Item;
 
 import java.awt.*;
 
@@ -64,6 +65,17 @@ public class GameSession {
             player.addExperience(monster.getExperienceReward());
             player.addCoins(monster.getCoinReward());
             sb.append("Won **").append(monster.getExperienceReward()).append("** of XP and **").append(monster.getCoinReward()).append("** \uD83D\uDCB0.\n");
+
+            if (!monster.isAlive()) {
+                Item loot = monster.rollLoot();
+                if (loot != null) {
+                    player.getInventory().add(loot);
+                    sb.append("\n🎁 You found a **").append(loot.getName()).append("**!\n");
+                } else {
+                    sb.append("\n💨 The monster dropped nothing this time...\n");
+                }
+            }
+
             if (levelBeforeBattle < player.getLevel()) {
                 sb.append("`").append(player.getUsername()).append("` leveled up **").append(player.getLevel()).append("**!\n");
             }

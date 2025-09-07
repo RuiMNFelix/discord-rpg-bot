@@ -1,5 +1,6 @@
 package org.example.rpg;
 
+import java.util.List;
 import java.util.Random;
 
 public class MonsterFactory {
@@ -22,6 +23,7 @@ public class MonsterFactory {
     public static Monster createRandomMonster(int playerLevel) {
         String name;
         int hp, attack, defense, experienceReward, coinsReward;
+        List<LootDrop> drops;
         if(playerLevel <= 5) {
             name = MONSTER_NAMES_1_TO_5[random.nextInt(MONSTER_NAMES_1_TO_5.length)];
             hp = playerLevel * 15 + random.nextInt(26);
@@ -29,6 +31,7 @@ public class MonsterFactory {
             defense = random.nextInt(11);
             experienceReward = 20 + random.nextInt(81);
             coinsReward = 10 + random.nextInt(11);
+            drops = LootTable.getLowLevelLoot();
         }else if(playerLevel <= 10) {
             name = MONSTER_NAMES_6_TO_10[random.nextInt(MONSTER_NAMES_6_TO_10.length)];
             hp = playerLevel * 15 + random.nextInt(26);
@@ -36,6 +39,7 @@ public class MonsterFactory {
             defense = random.nextInt(11);
             experienceReward = 50 + random.nextInt(81);
             coinsReward = 30 + random.nextInt(11);
+            drops = LootTable.getHighLevelLoot();
         }else{
             name = MONSTER_NAMES_11_TO_ABOVE[random.nextInt(MONSTER_NAMES_11_TO_ABOVE.length)];
             hp = playerLevel * 15 + random.nextInt(26);
@@ -43,7 +47,8 @@ public class MonsterFactory {
             defense = random.nextInt(11);
             experienceReward = 100 + random.nextInt(101);
             coinsReward = 50 + random.nextInt(11);
+            drops = LootTable.getMidLevelLoot();
         }
-        return new Monster(name, hp, attack, defense, experienceReward, coinsReward);
+        return new Monster(name, hp, attack, defense, experienceReward, coinsReward, drops);
     }
 }

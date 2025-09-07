@@ -1,5 +1,8 @@
 package org.example.rpg;
 
+import org.example.rpg.Items.Item;
+
+import java.util.List;
 import java.util.Random;
 
 public class Monster {
@@ -10,10 +13,11 @@ public class Monster {
     private final int defense;
     private final int experienceReward;
     private final int coinReward;
+    private final List<LootDrop> lootDrop;
 
     private static final Random random = new Random();
 
-    public Monster(String name, int hp, int attack, int defense, int experienceReward, int coinReward) {
+    public Monster(String name, int hp, int attack, int defense, int experienceReward, int coinReward, List<LootDrop> lootDrop) {
         this.name = name;
         this.hp = hp;
         this.maxHp = hp;
@@ -21,6 +25,7 @@ public class Monster {
         this.defense = defense;
         this.experienceReward = experienceReward;
         this.coinReward = coinReward;
+        this.lootDrop = lootDrop;
     }
 
     public void takeDamage(int damage) {
@@ -48,6 +53,19 @@ public class Monster {
         String empty = "□".repeat(emptyBlocks);
 
         return "❤️ [" + filled + empty + "] " + hp + "/" + maxHp;
+    }
+
+    public Item rollLoot(){
+        double roll = Math.random();
+        double cumulative = 0.0;
+
+        for(LootDrop drop : lootDrop){
+            cumulative += drop.getChance();
+            if(roll <= cumulative){
+                return drop.getItem();
+            }
+        }
+        return null;
     }
 
     public String getName() { return name; }
