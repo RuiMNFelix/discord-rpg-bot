@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.Items.Armor;
 import org.example.rpg.Items.Consumable;
@@ -9,6 +10,7 @@ import org.example.rpg.Player;
 import org.example.rpg.PlayerManager;
 import org.example.rpg.ShopManager;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class HealCommand implements Command {
@@ -31,24 +33,30 @@ public class HealCommand implements Command {
         String itemName = Objects.requireNonNull(event.getOption("item")).getAsString();
         Item item = ShopManager.getItem(itemName);
 
+        EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.red);
+
         if (item == null) {
-            event.reply("❌ That item does not exist!").setEphemeral(true).queue();
+            embedBuilder.setDescription("❌ That item does not exist!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
         if(item instanceof Weapon || item instanceof Armor){
-            event.reply("❌ The item needs to be a Life Potion!").setEphemeral(true).queue();
+            embedBuilder.setDescription("❌ The item needs to be a Life Potion!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
         if(player.getHp() == player.getRealMaxHp()) {
-            event.reply("You are already full life!").setEphemeral(true).queue();
+            embedBuilder.setDescription("You already have a full life!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
         Consumable potion = (Consumable) item;
         player.heals(potion.getRestoreHealth(), item);
-        event.reply("Glug glug! You chugged a **" + potion.getName() + "** and feel healthier! +" + potion.getRestoreHealth() + " HP")
+        embedBuilder.setDescription("Glug glug! You chugged a **" + potion.getName() + "** and feel healthier! +" + potion.getRestoreHealth() + " HP");
+        event.replyEmbeds(embedBuilder.build())
                 .setEphemeral(true).queue();
     }
 }

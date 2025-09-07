@@ -4,6 +4,8 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.ShopManager;
 
+import java.awt.*;
+
 public class ShopCommand implements Command {
     @Override
     public String name() {
@@ -19,7 +21,8 @@ public class ShopCommand implements Command {
     public void executeSlash(SlashCommandInteractionEvent event) {
         if (!event.getName().equals("shop")) return;
 
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.WHITE);
         StringBuilder sb = new StringBuilder();
 
         embedBuilder.setTitle("🏪 **Item Shop**");

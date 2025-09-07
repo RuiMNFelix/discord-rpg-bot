@@ -1,5 +1,9 @@
 package org.example.rpg;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.awt.*;
+
 public class GameSession {
     private final Player player;
     private final Monster monster;
@@ -13,9 +17,12 @@ public class GameSession {
         this.battleActive = true;
     }
 
-    public String startBattle() {
+    public EmbedBuilder startBattle() {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.RED);
         StringBuilder sb = new StringBuilder();
-        sb.append("A Battle has started between **").append(player.getUsername()).append("** and **").append(monster.getName()).append("**!\n");
+
+        embedBuilder.setTitle("A Battle has started between **" + player.getUsername() + "** and **" + monster.getName() + "**!");
         sb.append("----------------------------------\n");
         sb.append("`").append(player.getUsername())
                 .append("`: ❤️ ").append(player.getHp()).append("/").append(player.getRealMaxHp())
@@ -26,17 +33,23 @@ public class GameSession {
                 .append(" | ⚔️ ").append(monster.getAttack())
                 .append(" | \uD83D\uDEE1️ ").append(monster.getDefense()).append("\n");;
         sb.append("----------------------------------\n");
-        return sb.toString();
+
+        embedBuilder.setDescription(sb.toString());
+        return embedBuilder;
     }
 
-    public String playerAttack() {
+    public EmbedBuilder playerAttack() {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.RED);
         StringBuilder sb = new StringBuilder();
 
         if (!battleActive) {
-            return "Battle is not active.";
+            embedBuilder.setDescription("Battle is not active!");
+            return embedBuilder;
         }
         if (!player.isAlive() || !monster.isAlive()) {
-            return "Battle has ended!";
+            embedBuilder.setDescription("Battle has ended!");
+            return embedBuilder;
         }
 
         int playerDamage = player.calculateDamage();
@@ -55,7 +68,8 @@ public class GameSession {
                 sb.append("`").append(player.getUsername()).append("` leveled up **").append(player.getLevel()).append("**!\n");
             }
             battleActive = false;
-            return sb.toString();
+            embedBuilder.setDescription(sb.toString());
+            return embedBuilder;
         }
 
         sb.append("\n");
@@ -68,19 +82,24 @@ public class GameSession {
         if (!player.isAlive()) {
             sb.append("\n** Defeated! ** `").append(player.getUsername()).append("` has been defeated by `").append(monster.getName()).append("`!\n");
             battleActive = false;
-            return sb.toString();
+            embedBuilder.setDescription(sb.toString());
+            return embedBuilder;
         }
-
-        return sb.toString();
+        embedBuilder.setDescription(sb.toString());
+        return embedBuilder;
     }
 
-    public String playerRunAway(){
+    public EmbedBuilder playerRunAway(){
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.RED);
         StringBuilder sb = new StringBuilder();
         if (!battleActive) {
-            return "Battle is not active.";
+            embedBuilder.setDescription("Battle is not active!");
+            return embedBuilder;
         }
         sb.append("\n** Pussy! ** `").append(player.getUsername()).append("` is running away from a  `").append(monster.getName()).append("`!\n");
-        return sb.toString();
+        embedBuilder.setDescription(sb.toString());
+        return embedBuilder;
     }
 
     public boolean isBattleActive() {

@@ -107,6 +107,9 @@ public class Player {
     }
 
     public void heals(int value, Item item){
+        if(hp+value > maxHp){
+            hp = maxHp;
+        }
         hp += value;
         getInventory().remove(item);
     }

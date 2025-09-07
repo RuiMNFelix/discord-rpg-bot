@@ -8,6 +8,8 @@ import org.example.rpg.PlayerManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
+
 public class InventoryCommand implements Command {
     private static final Logger logger = LoggerFactory.getLogger(InventoryCommand.class);
 
@@ -27,14 +29,15 @@ public class InventoryCommand implements Command {
         String userName = event.getUser().getName();
         Player player = PlayerManager.getPlayer(userId, userName);
 
-        EmbedBuilder embedBuilder = new EmbedBuilder();
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.ORANGE);
 
         if (player.getInventory().isEmpty()) {
             event.reply("📦 Your Inventory is Empty!").queue();
             return;
         }
 
-        embedBuilder.setTitle("📦 **Inventory of " + player.getUsername());
+        embedBuilder.setTitle("📦 Inventory of " + player.getUsername());
         StringBuilder sb = new StringBuilder();
 
         int i = 1;

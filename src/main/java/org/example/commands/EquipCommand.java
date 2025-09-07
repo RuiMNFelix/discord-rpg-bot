@@ -1,9 +1,11 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.Player;
 import org.example.rpg.PlayerManager;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class EquipCommand implements Command {
@@ -28,10 +30,14 @@ public class EquipCommand implements Command {
 
         boolean equipped = player.equipItem(itemName);
 
+        EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.ORANGE);
+
         if (equipped) {
-            event.reply("✅ Equipped **" + itemName + "**!").queue();
+            embedBuilder.setDescription("✅ Equipped **" + itemName + "**!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
         } else {
-            event.reply("❌ Couldn't equip `" + itemName + "`. \n" + "Check if you have it in your inventory and if it can be equipped.")
+            embedBuilder.setDescription("❌ Couldn't equip `" + itemName + "`. \n" + "Check if you have it in your inventory and if it can be equipped.");
+            event.replyEmbeds(embedBuilder.build())
                     .setEphemeral(true)
                     .queue();
         }

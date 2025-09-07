@@ -1,8 +1,11 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.Player;
 import org.example.rpg.PlayerManager;
+
+import java.awt.*;
 
 public class StatsCommand implements Command {
     @Override
@@ -14,6 +17,10 @@ public class StatsCommand implements Command {
         String userId = event.getUser().getId();
         String userName = event.getUser().getName();
         Player player = PlayerManager.getPlayer(userId, userName);
-        event.reply("Your statistics:\n" + player.toString()).setEphemeral(true).queue();
+        EmbedBuilder  embedBuilder = new EmbedBuilder()
+                .setTitle("Your statistics:")
+                .setDescription(player.toString())
+                .setColor(Color.MAGENTA);
+        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }
 }

@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import org.example.rpg.*;
@@ -40,8 +41,8 @@ public class BattleCommand implements Command{
         PlayerManager.startGameSession(channelId, player, monster);
         GameSession session = PlayerManager.getGameSession(channelId);
 
-        String battleStartMessage = session.startBattle();
-        event.reply(battleStartMessage)
+        EmbedBuilder battleStartMessage = session.startBattle();
+        event.replyEmbeds(battleStartMessage.build())
                 .addActionRow(
                         Button.primary("attack:" + userId, "⚔️ Attack"),
                         Button.danger("run:" + userId, "🏃 Run")

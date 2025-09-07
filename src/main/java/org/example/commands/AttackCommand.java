@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.GameSession;
 import org.example.rpg.PlayerManager;
@@ -38,8 +39,8 @@ public class AttackCommand implements Command {
             return;
         }
 
-        String battleLog = session.playerAttack();
-        event.reply(battleLog).queue();
+        EmbedBuilder battleLog = session.playerAttack();
+        event.replyEmbeds(battleLog.build()).queue();
         logger.debug("Command /attack executed by {} on channel {}", userName, channelId);
 
         if (!session.isBattleActive()) {

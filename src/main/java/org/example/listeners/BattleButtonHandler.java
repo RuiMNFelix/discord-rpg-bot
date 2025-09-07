@@ -1,5 +1,6 @@
 package org.example.listeners;
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.example.rpg.GameSession;
@@ -27,20 +28,25 @@ public class BattleButtonHandler extends ListenerAdapter {
 
         switch (action) {
             case "attack":
-                String attackResult = session.playerAttack();
+                EmbedBuilder attackResultEmbed = session.playerAttack();
                 if (!session.getMonster().isAlive()) {
-                    event.editMessage(attackResult)
+                    event.editMessageEmbeds(attackResultEmbed.build())
+                            .setComponents()
+                            .queue();
+                    PlayerManager.removeGameSession(channelId);
+                } else if (!session.getPlayer().isAlive()) {
+                    event.editMessageEmbeds(attackResultEmbed.build())
                             .setComponents()
                             .queue();
                     PlayerManager.removeGameSession(channelId);
                 } else {
-                    event.editMessage(attackResult).queue();
+                    event.editMessageEmbeds(attackResultEmbed.build()).queue();
                 }
                 break;
 
             case "run":
-                String playerRunAway = session.playerRunAway();
-                event.editMessage(playerRunAway)
+                EmbedBuilder playerRunAway = session.playerRunAway();
+                event.editMessageEmbeds(playerRunAway.build())
                         .setComponents()
                         .queue();
                 PlayerManager.removeGameSession(channelId);
