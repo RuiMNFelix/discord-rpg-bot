@@ -33,7 +33,8 @@ public class InventoryCommand implements Command {
                 .setColor(Color.ORANGE);
 
         if (player.getInventory().isEmpty()) {
-            event.reply("📦 Your Inventory is Empty!").queue();
+            embedBuilder.setDescription("📦 Your Inventory is Empty!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
@@ -52,6 +53,6 @@ public class InventoryCommand implements Command {
         embedBuilder.addField("🛡️ Equipped Armor: ",
                 player.getEquippedArmor() != null ? player.getEquippedArmor().getShortInfo() : "None", false);
 
-        event.replyEmbeds(embedBuilder.build()).queue();
+        event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }
 }

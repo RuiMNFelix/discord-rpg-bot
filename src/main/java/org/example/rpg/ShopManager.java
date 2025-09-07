@@ -39,6 +39,12 @@ public class ShopManager {
         shopItems.put("Small Life Potion", new Consumable("Small Life Potion",
                 "A tiny vial of glowing liquid that restores a bit of health.",
                 Rarity.COMMON, 20, "Restores 20 hp", 20));
+        shopItems.put("Medium Life Potion", new Consumable("Medium Life Potion",
+                "A medium vial of glowing liquid that restores a fair amount of health.",
+                Rarity.UNCOMMON, 50, "Restores 50 hp", 50));
+        shopItems.put("Large Life Potion", new Consumable("Large Life Potion",
+                "A large vial of glowing liquid that restores a significant amount of health.",
+                Rarity.RARE, 100, "Restores 100 hp", 100));
     }
 
     public static Map<String, Item> getShopItems() {
