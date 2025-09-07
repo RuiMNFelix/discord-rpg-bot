@@ -12,7 +12,7 @@ public class MonsterFactory {
 
     private static final String[] MONSTER_NAMES_6_TO_10 = {
             "\uD83D\uDFE2 Green Slime", "\uD83E\uDDB4 Skeleton", "\uD83E\uDDCC Green Goblin",
-            "\uD83D\uDC7B Ghost", "\uD83D\uDC41\uFE0F Cyclops"
+            "\uD83D\uDC7B Ghost", "\uD83D\uDC41️ Cyclops"
     };
 
     private static final String[] MONSTER_NAMES_11_TO_ABOVE = {

@@ -33,7 +33,7 @@ public class BattleCommand implements Command{
 
         Player player = PlayerManager.getPlayer(userId, userName);
         if (player.getHp() == 0){
-            event.reply("you don't have enough ❤\uFE0F for a battle!").queue();
+            event.reply("you don't have enough ❤️ for a battle!").queue();
             return;
         }
         Monster monster = MonsterFactory.createRandomMonster(player.getLevel());

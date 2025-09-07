@@ -2,6 +2,7 @@ package org.example;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.listeners.BattleButtonHandler;
@@ -48,7 +49,15 @@ public class Main {
         jda.updateCommands()
                 .addCommands(
                         Commands.slash("battle", "Starts a battle"),
-                        Commands.slash("stats", "Checks player's stats")
+                        Commands.slash("stats", "Checks player's stats"),
+                        Commands.slash("inventory", "Opens player's inventory"),
+                        Commands.slash("equip", "Equip a Weapon or Armor")
+                                .addOption(OptionType.STRING, "item", "Name of the item that you want to equip", true),
+                        Commands.slash("buy", "Buy an Item")
+                                .addOption(OptionType.STRING, "item", "Name of the item that you want to buy", true),
+                        Commands.slash("shop", "Lists all shop items"),
+                        Commands.slash("heal", "Heals using a Potion")
+                                .addOption(OptionType.STRING, "item", "Name of the Potion you want to use", true)
                 ).queue(success -> logger.info("Slash commands registered successfully!"),
                         failure -> logger.error("Failed to register slash commands: ", failure));
     }

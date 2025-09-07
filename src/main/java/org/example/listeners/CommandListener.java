@@ -3,10 +3,7 @@ package org.example.listeners;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.example.commands.AttackCommand;
-import org.example.commands.BattleCommand;
-import org.example.commands.Command;
-import org.example.commands.StatsCommand;
+import org.example.commands.*;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +20,11 @@ public class CommandListener extends ListenerAdapter {
         commands.put("battle", new BattleCommand());
         commands.put("attack", new AttackCommand());
         commands.put("stats", new StatsCommand());
+        commands.put("inventory", new InventoryCommand());
+        commands.put("equip", new EquipCommand());
+        commands.put("buy", new BuyCommand());
+        commands.put("shop", new ShopCommand());
+        commands.put("heal", new HealCommand());
         logger.info("Registered {} commands", commands.size());
     }
 

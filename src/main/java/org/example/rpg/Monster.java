@@ -3,13 +3,13 @@ package org.example.rpg;
 import java.util.Random;
 
 public class Monster {
-    private String name;
+    private final String name;
     private int hp;
-    private int maxHp;
-    private int attack;
-    private int defense;
-    private int experienceReward;
-    private int coinReward;
+    private final int maxHp;
+    private final int attack;
+    private final int defense;
+    private final int experienceReward;
+    private final int coinReward;
 
     private static final Random random = new Random();
 
@@ -20,7 +20,7 @@ public class Monster {
         this.attack = attack;
         this.defense = defense;
         this.experienceReward = experienceReward;
-        this.coinReward = coinReward;;
+        this.coinReward = coinReward;
     }
 
     public void takeDamage(int damage) {
@@ -49,6 +49,6 @@ public class Monster {
 
     @Override
     public String toString() {
-        return String.format("%s (❤\uFE0F %d/%d, ⚔\uFE0F %d, \uD83D\uDEE1\uFE0F %d)", name, hp, maxHp, attack, defense);
+        return String.format("%s (❤️ %d/%d, ⚔️ %d, \uD83D\uDEE1️ %d)", name, hp, maxHp, attack, defense);
     }
 }
