@@ -37,7 +37,7 @@ public class BattleCommand implements Command{
             event.reply("you don't have enough ❤️ for a battle!").queue();
             return;
         }
-        Monster monster = MonsterFactory.createRandomMonster(player.getLevel());
+        Monster monster = MonsterFactory.createRandomMonster(player.getCurrentZone(), player.getLevel());
         PlayerManager.startGameSession(channelId, player, monster);
         GameSession session = PlayerManager.getGameSession(channelId);
 

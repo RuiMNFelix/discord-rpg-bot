@@ -21,8 +21,12 @@ public class Player {
     private final List<Item> inventory;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
+    private Zone currentZone;
+    private int questIndex;
+    private Quest activeQuest;
 
     private static final Random random = new Random();
+    Zone startZone = Zone.getStartZone();
 
     public Player(String id, String username) {
         this.id = id;
@@ -35,6 +39,9 @@ public class Player {
         this.attack = 10;
         this.defense = 5;
         this.inventory = new ArrayList<>();
+        this.currentZone = startZone;
+        this.questIndex = 0;
+        this.activeQuest = startZone.getMainQuests().getFirst();
     }
 
     public void addCoins(int amount) {
@@ -142,18 +149,82 @@ public class Player {
         return "❤️ [" + filled + empty + "] " + hp + "/" + getRealMaxHp();
     }
 
-    public String getId() { return id; }
-    public String getUsername() { return username; }
-    public int getLevel() { return level; }
-    public int getCoins() { return coins; }
-    public int getExperience() { return experience; }
-    public int getHp() { return hp; }
-    public int getMaxHp() { return maxHp; }
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
-    public List<Item> getInventory() { return inventory; }
-    public Weapon getEquippedWeapon() { return equippedWeapon; }
-    public Armor getEquippedArmor() { return equippedArmor; }
+    public Quest getActiveQuest() { return activeQuest; }
+
+    public void completeQuest() {
+        if (activeQuest.isCompleted()) {
+            questIndex++;
+            if (questIndex < currentZone.getMainQuests().size()) {
+                activeQuest = currentZone.getMainQuests().get(questIndex);
+            } else {
+                activeQuest = null;
+            }
+        }
+    }
+
+    public boolean hasActiveQuest() {
+        return activeQuest != null && !activeQuest.isCompleted();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public Weapon getEquippedWeapon() {
+        return equippedWeapon;
+    }
+
+    public Armor getEquippedArmor() {
+        return equippedArmor;
+    }
+
+    public Zone getCurrentZone() {
+        return currentZone;
+    }
+
+    public int getQuestIndex() {
+        return questIndex;
+    }
+
+    public Zone getStartZone() {
+        return startZone;
+    }
 
     @Override
     public String toString() {

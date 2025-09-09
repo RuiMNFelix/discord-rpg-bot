@@ -57,7 +57,8 @@ public class Main {
                                 .addOption(OptionType.STRING, "item", "Name of the item that you want to buy", true),
                         Commands.slash("shop", "Lists all shop items"),
                         Commands.slash("heal", "Heals using a Potion")
-                                .addOption(OptionType.STRING, "item", "Name of the Potion you want to use", true)
+                                .addOption(OptionType.STRING, "item", "Name of the Potion you want to use", true),
+                        Commands.slash("quest", "Look at your quest")
                 ).queue(success -> logger.info("Slash commands registered successfully!"),
                         failure -> logger.error("Failed to register slash commands: ", failure));
     }

@@ -25,6 +25,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("buy", new BuyCommand());
         commands.put("shop", new ShopCommand());
         commands.put("heal", new HealCommand());
+        commands.put("quest", new QuestCommand());
         logger.info("Registered {} commands", commands.size());
     }
 

@@ -4,6 +4,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import org.example.rpg.Items.Item;
 
 import java.awt.*;
+import java.util.Objects;
+
+import static org.example.rpg.QuestType.GATHER;
+import static org.example.rpg.QuestType.KILL;
 
 public class GameSession {
     private final Player player;
@@ -66,18 +70,44 @@ public class GameSession {
             player.addCoins(monster.getCoinReward());
             sb.append("Won **").append(monster.getExperienceReward()).append("** of XP and **").append(monster.getCoinReward()).append("** \uD83D\uDCB0.\n");
 
-            if (!monster.isAlive()) {
-                Item loot = monster.rollLoot();
-                if (loot != null) {
-                    player.getInventory().add(loot);
-                    sb.append("\n🎁 You found a **").append(loot.getName()).append("**!\n");
-                } else {
-                    sb.append("\n💨 The monster dropped nothing this time...\n");
+            Item loot = monster.rollLoot();
+            if (loot != null) {
+                player.getInventory().add(loot);
+                sb.append("\n🎁 You found a **").append(loot.getName()).append("**!");
+            } else {
+                sb.append("\n💨 The monster dropped nothing this time...\n");
+            }
+
+            Quest quest = player.getActiveQuest();
+            if(quest != null && !quest.isCompleted()) {
+                if (Objects.requireNonNull(quest.getType()) == KILL) {
+                    if (Objects.equals(monster.getName(), quest.getTarget())) {
+                        quest.addProgress(monster.getName());
+                        sb.append("📜 You killed a ").append(monster.getName()).append(" | Quest progress: ").append(quest.getStatus()).append("\n");
+                    }
+                }else if (Objects.requireNonNull(quest.getType()) == GATHER && loot != null) {
+                    if (Objects.equals(loot.getName(), quest.getTarget())) {
+                        quest.addProgress(loot.getName());
+                        sb.append(" | Quest progress: ").append(quest.getStatus()).append("\n");
+                    }
+                }
+            }
+
+            if(quest != null) {
+                if (quest.isCompleted()) {
+                    sb.append("\n✅ Quest completed: **").append(quest.getTitle()).append("**!\n\n");
+                    player.completeQuest();
+                    if (player.getActiveQuest() != null) {
+                        sb.append("➡️ New quest unlocked: **")
+                                .append(player.getActiveQuest().getTitle()).append("**\n\n");
+                    } else {
+                        sb.append("🎉 All quests in this zone completed!\n\n");
+                    }
                 }
             }
 
             if (levelBeforeBattle < player.getLevel()) {
-                sb.append("`").append(player.getUsername()).append("` leveled up **").append(player.getLevel()).append("**!\n");
+                sb.append("\n`").append(player.getUsername()).append("` leveled up **").append(player.getLevel()).append("**!\n");
             }
             battleActive = false;
             embedBuilder.setDescription(sb.toString());
