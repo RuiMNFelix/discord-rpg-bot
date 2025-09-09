@@ -1,5 +1,8 @@
 package org.example.rpg;
 
+import org.example.rpg.loots.LootDrop;
+import org.example.rpg.loots.LootTable;
+
 import java.util.List;
 import java.util.Random;
 

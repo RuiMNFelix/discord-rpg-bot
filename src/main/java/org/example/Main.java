@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.example.listeners.BattleButtonHandler;
 import org.example.config.BotConfig;
 import org.example.listeners.CommandListener;
+import org.example.listeners.ShopButtonHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ public class Main {
                     .enableIntents(EnumSet.allOf(GatewayIntent.class))
                     .addEventListeners(new CommandListener())
                     .addEventListeners(new BattleButtonHandler())
+                    .addEventListeners(new ShopButtonHandler())
                     .build();
             jda.awaitReady();
             logger.info("Bot is online and ready");

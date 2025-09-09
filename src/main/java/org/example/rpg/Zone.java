@@ -1,5 +1,7 @@
 package org.example.rpg;
 
+import org.example.rpg.quests.Quest;
+
 import java.util.List;
 
 public class Zone {

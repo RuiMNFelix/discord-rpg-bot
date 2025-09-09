@@ -23,8 +23,15 @@ public class Armor extends Item {
     }
 
     @Override
+    public String getInventoryInfo() {
+        return "🛡️ [" + getRarity() + "] " + getName() + " - " + getDescription() +
+                "\n     🛡️ Defense +" + getDefense() +
+                " | ❤️ +" + getExtraHp() + " Max HP";
+    }
+
+    @Override
     public String toString() {
-        return "🛡️ " + getName() + " → [" + getRarity() + "] " + getDescription() +
+        return "🛡️ [" + getRarity() + "] " + getDescription() +
                 "\n   💰 " + getPrice() +
                 " | 🛡️ Defense +" + getDefense() +
                 " | ❤️ +" + getExtraHp() + " Max HP";

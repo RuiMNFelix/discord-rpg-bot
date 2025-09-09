@@ -1,4 +1,4 @@
-package org.example.rpg;
+package org.example.rpg.quests;
 
 public enum QuestType {
     GATHER,

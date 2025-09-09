@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class InventoryCommand implements Command {
     private static final Logger logger = LoggerFactory.getLogger(InventoryCommand.class);
@@ -29,6 +31,8 @@ public class InventoryCommand implements Command {
         String userName = event.getUser().getName();
         Player player = PlayerManager.getPlayer(userId, userName);
 
+        Map<Item, Integer> inventory = new HashMap<>();
+
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setColor(Color.ORANGE);
 
@@ -41,17 +45,25 @@ public class InventoryCommand implements Command {
         embedBuilder.setTitle("📦 Inventory of " + player.getUsername());
         StringBuilder sb = new StringBuilder();
 
-        int i = 1;
         for (Item item : player.getInventory()) {
-            sb.append(i++).append(". ").append(item.toString()).append("\n");
+            inventory.merge(item, 1, Integer::sum);
         }
+
+        int i = 1;
+        for(Map.Entry<Item, Integer> entry : inventory.entrySet()) {
+            Item item = entry.getKey();
+            int value = entry.getValue();
+            sb.append(i++).append(". ").append(value).append("x ")
+                            .append(entry.getKey().getInventoryInfo()).append("\n");
+        }
+
         embedBuilder.setDescription(sb.toString());
 
         embedBuilder.addField("⚔️ Equipped Weapon: ",
-                player.getEquippedWeapon() != null ? player.getEquippedWeapon().getShortInfo() : "None", false);
+                player.getEquippedWeapon() != null ? player.getEquippedWeapon().getShortInfo() : "None", true);
 
         embedBuilder.addField("🛡️ Equipped Armor: ",
-                player.getEquippedArmor() != null ? player.getEquippedArmor().getShortInfo() : "None", false);
+                player.getEquippedArmor() != null ? player.getEquippedArmor().getShortInfo() : "None", true);
 
         event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
     }

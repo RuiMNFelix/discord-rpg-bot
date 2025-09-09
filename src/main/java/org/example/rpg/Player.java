@@ -3,6 +3,7 @@ package org.example.rpg;
 import org.example.rpg.Items.Armor;
 import org.example.rpg.Items.Item;
 import org.example.rpg.Items.Weapon;
+import org.example.rpg.quests.Quest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Player {
     private final List<Item> inventory;
     private Weapon equippedWeapon;
     private Armor equippedArmor;
-    private Zone currentZone;
+    private final Zone currentZone;
     private int questIndex;
     private Quest activeQuest;
 

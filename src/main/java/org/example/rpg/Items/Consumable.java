@@ -16,8 +16,15 @@ public class Consumable extends Item {
     public int getRestoreHealth() { return  restoreHealth; }
 
     @Override
+    public String getInventoryInfo() {
+        return "🧪 [" + getRarity() + "] " + getName() + " - " + getDescription() +
+                "\n✨ " + effect +
+                " | ❤️ +" + restoreHealth + " HP";
+    }
+
+    @Override
     public String toString() {
-        return "🧪 " + getName() + " → [" + getRarity() + "] " + getDescription() +
+        return "🧪 [" + getRarity() + "] " + getDescription() +
                 "\n   💰 " + getPrice() +
                 " | ✨ " + effect +
                 " | ❤️ +" + restoreHealth + " HP";

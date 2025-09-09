@@ -1,4 +1,4 @@
-package org.example.rpg;
+package org.example.rpg.quests;
 
 public class Quest {
     private final String id;
@@ -6,22 +6,25 @@ public class Quest {
     private final String giver;
     private final String description;
     private final QuestType type;
+    private final String objective;
     private final String target;
     private final int requiredAmount;
-
     private int progress;
     private boolean completed;
+    private final int coinsReward;
 
-    public Quest(String id, String title, String giver, String description, QuestType type, String target, int requiredAmount) {
+    public Quest(String id, String title, String giver, String description, QuestType type, String objective, String target, int requiredAmount, int coinsReward) {
         this.id = id;
         this.title = title;
         this.giver = giver;
         this.description = description;
         this.type = type;
+        this.objective = objective;
         this.target = target;
         this.requiredAmount = requiredAmount;
         this.progress = 0;
         this.completed = false;
+        this.coinsReward = coinsReward;
     }
 
     public String getId() {
@@ -44,6 +47,8 @@ public class Quest {
         return type;
     }
 
+    public String getObjective() { return objective; }
+
     public String getTarget() {
         return target;
     }
@@ -58,6 +63,10 @@ public class Quest {
 
     public boolean isCompleted() {
         return completed;
+    }
+
+    public int getCoinsReward() {
+        return coinsReward;
     }
 
     public void addProgress(String targetName) {
@@ -86,7 +95,7 @@ public class Quest {
         return "**" + title + "**\n"
                 + "👤 *Giver*: " + getGiver() + "\n"
                 + "📖 *Context*: " + description + "\n"
-                + "🎯 *Objective*: " + requiredAmount + "x " + target + "\n"
+                + "🎯 *Objective*: " + objective + "\n"
                 + "📊 *Progress*: " + getStatus() + "\n";
     }
 }

@@ -4,7 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import org.example.rpg.Player;
 import org.example.rpg.PlayerManager;
-import org.example.rpg.Quest;
+import org.example.rpg.quests.Quest;
 
 import java.awt.*;
 
@@ -41,7 +41,7 @@ public class QuestCommand implements Command {
 
         embed.addField("👤 Giver", quest.getGiver(), false);
         embed.addField("📖 Context", quest.getDescription(), false);
-        embed.addField("🎯 Objective", quest.getRequiredAmount() + "x " + quest.getTarget(), false);
+        embed.addField("🎯 Objective", quest.getObjective(), false);
         embed.addField("📊 Progress", quest.getStatus(), false);
 
         embed.setFooter("Zone: " + player.getCurrentZone().getName());

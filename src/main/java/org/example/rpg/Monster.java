@@ -1,6 +1,7 @@
 package org.example.rpg;
 
 import org.example.rpg.Items.Item;
+import org.example.rpg.loots.LootDrop;
 
 import java.util.List;
 import java.util.Random;

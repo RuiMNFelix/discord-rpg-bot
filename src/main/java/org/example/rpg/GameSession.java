@@ -2,12 +2,13 @@ package org.example.rpg;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import org.example.rpg.Items.Item;
+import org.example.rpg.quests.Quest;
 
 import java.awt.*;
 import java.util.Objects;
 
-import static org.example.rpg.QuestType.GATHER;
-import static org.example.rpg.QuestType.KILL;
+import static org.example.rpg.quests.QuestType.GATHER;
+import static org.example.rpg.quests.QuestType.KILL;
 
 public class GameSession {
     private final Player player;
@@ -83,7 +84,7 @@ public class GameSession {
                 if (Objects.requireNonNull(quest.getType()) == KILL) {
                     if (Objects.equals(monster.getName(), quest.getTarget())) {
                         quest.addProgress(monster.getName());
-                        sb.append("📜 You killed a ").append(monster.getName()).append(" | Quest progress: ").append(quest.getStatus()).append("\n");
+                        sb.append("\n📜 You killed a ").append(monster.getName()).append(" | Quest progress: ").append(quest.getStatus()).append("\n");
                     }
                 }else if (Objects.requireNonNull(quest.getType()) == GATHER && loot != null) {
                     if (Objects.equals(loot.getName(), quest.getTarget())) {
@@ -95,7 +96,8 @@ public class GameSession {
 
             if(quest != null) {
                 if (quest.isCompleted()) {
-                    sb.append("\n✅ Quest completed: **").append(quest.getTitle()).append("**!\n\n");
+                    sb.append("\n✅ Quest completed: **").append(quest.getTitle()).append("**! You Receive **").append(quest.getCoinsReward()).append("**💰!\n\n");
+                    player.addCoins(quest.getCoinsReward());
                     player.completeQuest();
                     if (player.getActiveQuest() != null) {
                         sb.append("➡️ New quest unlocked: **")

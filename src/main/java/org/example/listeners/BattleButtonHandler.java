@@ -10,6 +10,7 @@ public class BattleButtonHandler extends ListenerAdapter {
     @Override
     public void onButtonInteraction(ButtonInteractionEvent event) {
         String[] parts = event.getComponentId().split(":");
+        if (!parts[0].equals("attack") && !parts[0].equals("run")) return;
         String action = parts[0];
         String userId = parts[1];
 

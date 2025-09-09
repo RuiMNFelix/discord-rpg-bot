@@ -1,4 +1,4 @@
-package org.example.rpg;
+package org.example.rpg.loots;
 
 import org.example.rpg.Items.Item;
 
