@@ -11,7 +11,7 @@ public class GameWorld {
     public static final Map<String, Zone> zones = new HashMap<>();
 
     static {
-        zones.put("Whispering Forest", new Zone("Whispering Forest",
+        zones.put("Whispering Forest", new Zone("\uD83C\uDF32 Whispering Forest",
                 "The Whispering Forest was once a peaceful, if slightly eerie, woodland. Recently, a subtle corruption has taken root. A low, constant whispering, audible to some, has begun to drive the wildlife mad with aggression and fill the villagers with paranoia and a mind-fever. The forest is sick, and the player arrives right as things are about to boil over.",
                  1,
                 List.of(
