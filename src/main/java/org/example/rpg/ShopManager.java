@@ -17,7 +17,7 @@ public class ShopManager {
                 50, 5));
         shopItems.put("Iron Sword", new Weapon("Iron Sword",
                 "A solid iron blade, reliable and sharp.", Rarity.UNCOMMON,
-                80, 8));
+                100, 8));
 
 
         shopItems.put("Leather Armor", new Armor("Leather Armor",
@@ -33,7 +33,7 @@ public class ShopManager {
         shopItems.put("Iron Armor", new Armor("Iron Armor",
                 "Heavy iron plates that provide strong protection but reduce agility.",
                 Rarity.UNCOMMON,
-                80, 8, 20));
+                100, 8, 20));
 
 
         shopItems.put("Small Life Potion", new Consumable("Small Life Potion",

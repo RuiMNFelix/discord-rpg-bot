@@ -24,8 +24,8 @@ public class MonsterFactory {
             hp = playerLevel * 15 + random.nextInt(26);
             attack = playerLevel * 2 + random.nextInt(6);
             defense = random.nextInt(11);
-            experienceReward = 20 + random.nextInt(31);
-            coinsReward = 10 + random.nextInt(11);
+            experienceReward = playerLevel * 10 + random.nextInt(31);
+            coinsReward = playerLevel * 2 + random.nextInt(11);
             drops = LootTable.getZoneOneLootDrops();
         //}
 

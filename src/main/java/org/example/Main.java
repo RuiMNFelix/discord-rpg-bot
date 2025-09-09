@@ -57,6 +57,8 @@ public class Main {
                                 .addOption(OptionType.STRING, "item", "Name of the item that you want to equip", true),
                         Commands.slash("buy", "Buy an Item")
                                 .addOption(OptionType.STRING, "item", "Name of the item that you want to buy", true),
+                        Commands.slash("sell", "Sell an Item")
+                                .addOption(OptionType.STRING, "item", "Name of the item that you want to sell", true),
                         Commands.slash("shop", "Lists all shop items"),
                         Commands.slash("heal", "Heals using a Potion")
                                 .addOption(OptionType.STRING, "item", "Name of the Potion you want to use", true),

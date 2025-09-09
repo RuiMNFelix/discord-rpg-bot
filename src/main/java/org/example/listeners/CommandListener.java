@@ -23,6 +23,7 @@ public class CommandListener extends ListenerAdapter {
         commands.put("inventory", new InventoryCommand());
         commands.put("equip", new EquipCommand());
         commands.put("buy", new BuyCommand());
+        commands.put("sell", new SellCommand());
         commands.put("shop", new ShopCommand());
         commands.put("heal", new HealCommand());
         commands.put("quest", new QuestCommand());
