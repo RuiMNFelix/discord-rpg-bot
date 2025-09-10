@@ -3,6 +3,8 @@ package org.example.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
+import net.dv8tion.jda.api.interactions.components.selections.StringSelectInteraction;
+import net.dv8tion.jda.api.interactions.components.selections.StringSelectMenu;
 import org.example.rpg.Items.Item;
 import org.example.rpg.Player;
 import org.example.rpg.PlayerManager;
@@ -39,13 +41,25 @@ public class ShopCommand implements Command {
 
         EmbedBuilder embed = buildShopPage(1, shopItems, itemsPerPage, totalPages, player);
 
+        StringSelectMenu.Builder menuBuilder = StringSelectMenu.create("shopMenu:id")
+                .setMaxValues(1)
+                .setPlaceholder("Buy a Shop Item");
+
+        Item item = null;
+        for(Map.Entry<String, Item> entry : shopItems){
+            menuBuilder.addOption(entry.getKey(), entry.getValue().getName());
+        }
+        StringSelectMenu selectMenu = menuBuilder.build();
+
         event.replyEmbeds(embed.build())
                 .addActionRow(
                         Button.secondary("shop_prev:1", "⬅️").asDisabled(),
                         Button.secondary("shop_next:1", "➡️")
-                )
+                ).addActionRow(selectMenu)
                 .queue();
     }
+
+
     private EmbedBuilder buildShopPage(int page, List<Map.Entry<String, Item>> shopItems,
                                        int itemsPerPage, int totalPages, Player player) {
         EmbedBuilder eb = new EmbedBuilder()

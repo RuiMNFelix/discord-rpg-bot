@@ -27,9 +27,9 @@ public class ZoneCommand implements  Command {
 
         EmbedBuilder embedBuilder = new EmbedBuilder().setColor(Color.DARK_GRAY);
 
-        embedBuilder.setTitle(player.getCurrentZone().getName());
-        embedBuilder.setDescription(" - " + player.getCurrentZone().getDescription() + "\n\n**Main Quests**");
-        for(Quest quest : player.getCurrentZone().getMainQuests()){
+        embedBuilder.setTitle(player.getCurrentZone().name());
+        embedBuilder.setDescription(" - " + player.getCurrentZone().description() + "\n\n**Main Quests**");
+        for(Quest quest : player.getCurrentZone().mainQuests()){
             embedBuilder.addField("📜  " + quest.getTitle(), quest.getDescription(), false);
         }
 

@@ -1,4 +1,4 @@
-package org.example.rpg;
+package org.example.rpg.RpgWorld;
 
 import org.example.rpg.quests.Quest;
 import org.example.rpg.quests.QuestType;

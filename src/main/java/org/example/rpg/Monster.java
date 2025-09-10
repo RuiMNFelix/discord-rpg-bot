@@ -61,9 +61,9 @@ public class Monster {
         double cumulative = 0.0;
 
         for(LootDrop drop : lootDrop){
-            cumulative += drop.getChance();
+            cumulative += drop.chance();
             if(roll <= cumulative){
-                return drop.getItem();
+                return drop.item();
             }
         }
         return null;

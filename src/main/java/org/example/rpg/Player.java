@@ -3,6 +3,7 @@ package org.example.rpg;
 import org.example.rpg.Items.Armor;
 import org.example.rpg.Items.Item;
 import org.example.rpg.Items.Weapon;
+import org.example.rpg.RpgWorld.Zone;
 import org.example.rpg.quests.Quest;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class Player {
     private Quest activeQuest;
 
     private static final Random random = new Random();
-    Zone startZone = Zone.getStartZone();
 
     public Player(String id, String username) {
         this.id = id;
@@ -40,9 +40,9 @@ public class Player {
         this.attack = 10;
         this.defense = 5;
         this.inventory = new ArrayList<>();
-        this.currentZone = startZone;
+        this.currentZone = Zone.getStartZone();
         this.questIndex = 0;
-        this.activeQuest = startZone.getMainQuests().getFirst();
+        this.activeQuest = Zone.getStartZone().mainQuests().getFirst();
     }
 
     public void addCoins(int amount) {
@@ -155,8 +155,8 @@ public class Player {
     public void completeQuest() {
         if (activeQuest.isCompleted()) {
             questIndex++;
-            if (questIndex < currentZone.getMainQuests().size()) {
-                activeQuest = currentZone.getMainQuests().get(questIndex);
+            if (questIndex < currentZone.mainQuests().size()) {
+                activeQuest = currentZone.mainQuests().get(questIndex);
             } else {
                 activeQuest = null;
             }
@@ -166,65 +166,50 @@ public class Player {
     public boolean hasActiveQuest() {
         return activeQuest != null && !activeQuest.isCompleted();
     }
-
     public String getId() {
         return id;
     }
-
     public String getUsername() {
         return username;
     }
-
     public int getLevel() {
         return level;
     }
-
     public int getCoins() {
         return coins;
     }
-
     public int getExperience() {
         return experience;
     }
-
     public int getHp() {
         return hp;
     }
-
     public int getMaxHp() {
         return maxHp;
     }
-
     public int getAttack() {
         return attack;
     }
-
     public int getDefense() {
         return defense;
     }
-
     public List<Item> getInventory() {
         return inventory;
     }
-
     public Weapon getEquippedWeapon() {
         return equippedWeapon;
     }
-
     public Armor getEquippedArmor() {
         return equippedArmor;
     }
-
     public Zone getCurrentZone() {
         return currentZone;
     }
-
     public int getQuestIndex() {
         return questIndex;
     }
-
     public Zone getStartZone() {
-        return startZone;
+        return Zone.getStartZone();
     }
 
     @Override

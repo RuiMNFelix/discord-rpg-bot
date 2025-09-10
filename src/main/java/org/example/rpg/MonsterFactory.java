@@ -1,5 +1,6 @@
 package org.example.rpg;
 
+import org.example.rpg.RpgWorld.Zone;
 import org.example.rpg.loots.LootDrop;
 import org.example.rpg.loots.LootTable;
 

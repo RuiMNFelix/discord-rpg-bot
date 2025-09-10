@@ -44,7 +44,7 @@ public class QuestCommand implements Command {
         embed.addField("🎯 Objective", quest.getObjective(), false);
         embed.addField("📊 Progress", quest.getStatus(), false);
 
-        embed.setFooter("Zone: " + player.getCurrentZone().getName());
+        embed.setFooter("Zone: " + player.getCurrentZone().name());
 
         event.replyEmbeds(embed.build()).setEphemeral(true).queue();
     }
