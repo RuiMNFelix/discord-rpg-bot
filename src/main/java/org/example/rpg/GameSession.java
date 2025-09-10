@@ -26,21 +26,16 @@ public class GameSession {
     public EmbedBuilder startBattle() {
         EmbedBuilder embedBuilder = new EmbedBuilder()
                 .setColor(Color.RED);
-        StringBuilder sb = new StringBuilder();
-
         embedBuilder.setTitle("A Battle has started between **" + player.getUsername() + "** and **" + monster.getName() + "**!");
-        sb.append("----------------------------------\n");
-        sb.append("`").append(player.getUsername())
-                .append("`: ").append(player.getHpBar())
-                .append(" | ⚔️ ").append(player.getRealAttack())
-                .append(" | \uD83D\uDEE1️ ").append(player.getRealDefense()).append("\n");
-        sb.append("\n`").append(monster.getName())
-                .append("`: ").append(monster.getHpBar())
-                .append(" | ⚔️ ").append(monster.getAttack())
-                .append(" | \uD83D\uDEE1️ ").append(monster.getDefense()).append("\n");;
-        sb.append("----------------------------------\n");
+        embedBuilder.setDescription(battleActiveText());
+        return embedBuilder;
+    }
 
-        embedBuilder.setDescription(sb.toString());
+    public EmbedBuilder duringBattle() {
+        EmbedBuilder embedBuilder = new EmbedBuilder()
+                .setColor(Color.RED);
+        embedBuilder.setTitle("A battle is taking place between **" + player.getUsername() + "** and **" + monster.getName() + "**!");
+        embedBuilder.setDescription(battleActiveText());
         return embedBuilder;
     }
 
@@ -61,6 +56,8 @@ public class GameSession {
         int playerDamage = player.calculateDamage();
         int actualPlayerDamage = playerDamage * playerDamage / (playerDamage + monster.getDefense());
         monster.takeDamage(playerDamage);
+        embedBuilder.setTitle("A battle is taking place between **" + player.getUsername() + "** and **" + monster.getName() + "**!");
+        sb.append("----------------------------------\n");
         sb.append("`").append(player.getUsername()).append("` attacks `").append(monster.getName()).append("` causing **").append(actualPlayerDamage).append("** of damage!\n");
         sb.append("`").append(monster.getName()).append("`: ").append(monster.getHpBar()).append("\n");
 
@@ -70,6 +67,7 @@ public class GameSession {
             player.addExperience(monster.getExperienceReward());
             player.addCoins(monster.getCoinReward());
             sb.append("Won **").append(monster.getExperienceReward()).append("** of XP and **").append(monster.getCoinReward()).append("** \uD83D\uDCB0.\n");
+            sb.append("----------------------------------\n");
 
             Item loot = monster.rollLoot();
             if (loot != null) {
@@ -125,10 +123,12 @@ public class GameSession {
 
         if (!player.isAlive()) {
             sb.append("\n** Defeated! ** `").append(player.getUsername()).append("` has been defeated by `").append(monster.getName()).append("`!\n");
+            sb.append("----------------------------------\n");
             battleActive = false;
             embedBuilder.setDescription(sb.toString());
             return embedBuilder;
         }
+        sb.append("----------------------------------\n");
         embedBuilder.setDescription(sb.toString());
         return embedBuilder;
     }
@@ -144,6 +144,21 @@ public class GameSession {
         sb.append("\n** Pussy! ** `").append(player.getUsername()).append("` is running away from a  `").append(monster.getName()).append("`!\n");
         embedBuilder.setDescription(sb.toString());
         return embedBuilder;
+    }
+
+    public String battleActiveText(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("----------------------------------\n");
+        sb.append("`").append(player.getUsername())
+                .append("`: ").append(player.getHpBar())
+                .append(" | ⚔️ ").append(player.getRealAttack())
+                .append(" | \uD83D\uDEE1️ ").append(player.getRealDefense()).append("\n");
+        sb.append("\n`").append(monster.getName())
+                .append("`: ").append(monster.getHpBar())
+                .append(" | ⚔️ ").append(monster.getAttack())
+                .append(" | \uD83D\uDEE1️ ").append(monster.getDefense()).append("\n");;
+        sb.append("----------------------------------\n");
+        return  sb.toString();
     }
 
     public boolean isBattleActive() {
