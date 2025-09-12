@@ -20,7 +20,8 @@ public class BattleButtonHandler extends ListenerAdapter {
         String userId = parts[1];
 
         if (!event.getUser().getId().equals(userId)) {
-            event.reply("❌ This is not your battle!").setEphemeral(true).queue();
+            EmbedBuilder embedBuilder = new EmbedBuilder().setDescription("❌ This is not your battle!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
@@ -28,7 +29,8 @@ public class BattleButtonHandler extends ListenerAdapter {
         GameSession session = PlayerManager.getGameSession(channelId);
 
         if (session == null) {
-            event.reply("⚠️ No active battle in this channel.").setEphemeral(true).queue();
+            EmbedBuilder embedBuilder = new EmbedBuilder().setDescription("⚠️ No active battle in this channel.");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 

@@ -57,7 +57,8 @@ public class ShopButtonHandler extends ListenerAdapter {
                                     Button.secondary("shop_next:" + newPage, "➡️").withDisabled(newPage == totalPages)
                             ),
                             ActionRow.of(selectMenu)
-                    ).queue();
+                    )
+                .queue();
             return;
         }
 
@@ -134,15 +135,19 @@ public class ShopButtonHandler extends ListenerAdapter {
         EmbedBuilder denied = new EmbedBuilder().setColor(Color.RED);
         if (item == null) {
             denied.setDescription("❌ This item is not in the shop!");
-            event.replyEmbeds(denied.build()).addActionRow(Button.primary("shop_open:1", "🏪 Back to Shop"))
-                    .setEphemeral(true).queue();
+            event.editMessageEmbeds(denied.build())
+                            .setComponents(
+                                    ActionRow.of(Button.primary("shop_open:1", "🏪 Back to Shop"))
+                            ).queue();
             return;
         }
 
         if (player.getCoins() < item.getPrice()) {
             denied.setDescription("❌ You don't have enough coins to buy **" + item.getName() + "**!");
-            event.replyEmbeds(denied.build()).addActionRow(Button.primary("shop_open:1", "🏪 Back to Shop"))
-                    .setEphemeral(true).queue();
+            event.editMessageEmbeds(denied.build())
+                    .setComponents(
+                            ActionRow.of(Button.primary("shop_open:1", "🏪 Back to Shop"))
+                    ).queue();
             return;
         }
 
@@ -153,9 +158,9 @@ public class ShopButtonHandler extends ListenerAdapter {
                 .setColor(Color.GREEN)
                 .setDescription("✅ You bought **" + item.getName() + "** for 💰 " + item.getPrice() + " coins!");
 
-        event.replyEmbeds(confirmation.build())
-                .addActionRow(Button.primary("shop_open:1", "🏪 Back to Shop"))
-                .setEphemeral(true)
-                .queue();
+        event.editMessageEmbeds(confirmation.build())
+                .setComponents(
+                        ActionRow.of(Button.primary("shop_open:1", "🏪 Back to Shop"))
+                ).queue();
     }
 }

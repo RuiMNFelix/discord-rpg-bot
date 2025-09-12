@@ -43,11 +43,12 @@ public class ShopCommand implements Command {
 
         StringSelectMenu.Builder menuBuilder = StringSelectMenu.create("shopMenu:id")
                 .setMaxValues(1)
-                .setPlaceholder("Buy a Shop Item");
+                .setPlaceholder("Buy an Item from Page 1");
 
-        Item item = null;
-        for(Map.Entry<String, Item> entry : shopItems){
-            menuBuilder.addOption(entry.getKey(), entry.getValue().getName());
+        int end = Math.min(itemsPerPage, shopItems.size());
+        for (int i = 0; i < end; i++) {
+            Map.Entry<String, Item> entry = shopItems.get(i);
+            menuBuilder.addOption(entry.getValue().getName(), entry.getKey());
         }
         StringSelectMenu selectMenu = menuBuilder.build();
 
@@ -55,10 +56,9 @@ public class ShopCommand implements Command {
                 .addActionRow(
                         Button.secondary("shop_prev:1", "⬅️").asDisabled(),
                         Button.secondary("shop_next:1", "➡️")
-                ).addActionRow(selectMenu)
+                ).addActionRow(selectMenu).setEphemeral(true)
                 .queue();
     }
-
 
     private EmbedBuilder buildShopPage(int page, List<Map.Entry<String, Item>> shopItems,
                                        int itemsPerPage, int totalPages, Player player) {

@@ -29,14 +29,15 @@ public class BattleCommand implements Command{
         String userName = event.getUser().getName();
 
         if (PlayerManager.hasActiveGameSession(channelId)) {
-            event.reply("There is already a battle in progress in this channel! Type `/attack` to continue.")
-                    .setEphemeral(true).queue();
+            EmbedBuilder embedBuilder = new EmbedBuilder().setDescription("There is already a battle in progress in this channel!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
 
         Player player = PlayerManager.getPlayer(userId, userName);
         if (player.getHp() == 0){
-            event.reply("you don't have enough ❤️ for a battle!").queue();
+            EmbedBuilder embedBuilder = new EmbedBuilder().setDescription("You don't have enough ❤️ for a battle!");
+            event.replyEmbeds(embedBuilder.build()).setEphemeral(true).queue();
             return;
         }
         Monster monster = MonsterFactory.createRandomMonster(player.getCurrentZone(), player.getLevel());
